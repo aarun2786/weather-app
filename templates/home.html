@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %} <title> Wheather </title>  {% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark text-white py-3 ">
+
+  <div class="container-fluid">
+    <!-- Links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        Weather App  Using Openweather API
+      </li>
+    </ul>
+  </div>
+
+</nav>
+{% endblock %}
+{% block body  %}
+
+
+
+<div class="container col-7  p-2 bg-opacity-25  fw-bold  text-center  " style=" backdrop-filter:blur(10px);"  >
+    <div  class="text-center py-3 px-5 container  " >
+        <form  action="{{url_for('main.home')}}" method="post" >
+            <div class="row  " >
+                <div class="col-6 text-center " >
+                    <input  class="form-control" type="text" name="city_name" placeholder="Enter the City" required >
+                </div>
+                <div class="col-1 px-0  " >
+                    <button  class="btn btn-primary "  type="submit" >Search</button>
+                </div>
+                <div class="col-3 px-0  " >
+                    <a href="{{url_for('main.current_location')}}" ><button  class="btn btn-warning "  type="button" >Current Location</button></a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% if method %}
+    <div class="py-2 text-center  " >
+        <div class="container col-10 py-5 "   >
+            <div class="py-0" >
+                <p class="text-white" >{{time}} </p>
+            </div>
+
+            <div  class="py-0" >
+                <p class="text-bold text-white fs-5 " > {{name}}</p>
+            </div>
+
+            <div class="" >
+                <p class="fs-1 text-white " > <img src="{{ url_for('static', filename='svg/' ~ weather['icon'] ~ '.png') }}" width="100" height="100" alt="SVG Image"> {{temperature['temp']}}°C</p>
+            </div>
+
+            <div class="container  text-white " >
+                <div class="row " >
+                    <div class="col    " >
+                        {{weather['main']}},  {{weather['description']}}
+                    </div>
+                </div>
+                <div class="row py-5 " >
+
+                    <div class="col-4  bx-0 " >
+                        <p class="fs-6" > Humidity </p>
+                        <img src="{{ url_for('static', filename='/humidity.png') }}" width="50" height="50" alt="SVG Image">
+                        {{temperature['humidity']}}
+
+
+                    </div>
+
+                    <div class="col-4  text-white " >
+                        <p class="fs-6" > Wind Speed </p>
+                        <img src="{{ url_for('static', filename='/wind speed.png') }}" width="50" height="50" alt="SVG Image">
+                        {{wind['wind_speed']}}
+                    </div>
+
+                    <div class="col-4  text-white " >
+                        <p class="fs-6" > Feels Lilke </p>
+                        <img src="{{ url_for('static', filename='/feels_like.png') }}" width="50" height="50" alt="SVG Image">
+                        {{temperature['feels_like']}} °C
+                    </div>
+                </div>
+            </div>
+        <div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
